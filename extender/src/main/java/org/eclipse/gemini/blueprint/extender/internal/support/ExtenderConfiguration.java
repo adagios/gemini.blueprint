@@ -361,7 +361,9 @@ public class ExtenderConfiguration implements BundleActivator {
 		threadGroup.setDaemon(false);
 
 		ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
-		taskExecutor.setMaxPoolSize(Runtime.getRuntime().availableProcessors());
+     	int availableProcessors = Runtime.getRuntime().availableProcessors();
+ 		taskExecutor.setMaxPoolSize(Math.max(3, availableProcessors));
+ 		taskExecutor.setCorePoolSize(Math.max(3, availableProcessors));
 		taskExecutor.setThreadGroup(threadGroup);
 		taskExecutor.setThreadNamePrefix("EclipseGeminiBlueprintExtenderThread-");
 		taskExecutor.initialize();
