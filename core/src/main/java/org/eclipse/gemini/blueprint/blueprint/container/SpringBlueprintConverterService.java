@@ -111,19 +111,6 @@ public class SpringBlueprintConverterService implements ConversionService {
 			return result;
 		}
 
-		if (!targetType.isCollection() && !targetType.isArray() && !targetType.isMap()) {
-			if (type.size() > 0) {
-				for (int i = 0; i < type.size(); i++) {
-					ReifiedType arg = type.getActualTypeArgument(i);
-					if (!Object.class.equals(arg.getRawClass())) {
-						throw new BlueprintConverterException(
-								"No conversion found for generic argument(s) for reified type " + arg.getRawClass()
-										+ "source type " + sourceType + "| targetType =" + targetType.getType(), null);
-					}
-				}
-			}
-		}
-
 		if (delegate != null) {
 			delegate.convert(source, sourceType, targetType);
 		}
